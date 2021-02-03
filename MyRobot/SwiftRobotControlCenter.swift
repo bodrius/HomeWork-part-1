@@ -12,7 +12,7 @@ class SwiftRobotControlCenter: RobotControlCenter {
 	
 	//level name setup
 	override func viewDidLoad() {
-		levelName = "L0C" // level name
+		levelName = "L55H" // level name
 
 		super.viewDidLoad()
 	}
@@ -20,8 +20,47 @@ class SwiftRobotControlCenter: RobotControlCenter {
 	override func viewDidAppear(_ animated: Bool) {
 		
 		super.viewDidAppear(animated)
-		
-		
+        putCake()
 	}
+    
+    
+    func putCake(){
+        while noCandyPresent, frontIsClear{
+            put()
+            move()
+            if frontIsBlocked{
+                put()
+                turnRight()
+                move()
+                move()
+                turnRight()
+                goLeftPutCake()
+            }
+        }
+        
+    }
+    
+    func goLeftPutCake(){
+        while noCandyPresent {
+            put()
+            move()
+            if frontIsBlocked{
+                put()
+                turnRight()
+                turnRight()
+                turnRight()
+                if frontIsBlocked, rightIsBlocked{
+                    break
+                }
+               
+                move()
+                move()
+                turnRight()
+                turnRight()
+                turnRight()
+                putCake()
+            }
+        }
+    }
 	
 }
